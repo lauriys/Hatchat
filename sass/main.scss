@@ -1,9 +1,10 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
 
 html, body {
 	color: #333;
 	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
 	height: 100%;
 	margin: 0;
 }
@@ -26,6 +27,26 @@ html, body {
 	width: 100%;
 }
 
+.button {
+	background-color: #ddd;
+	color: #333;
+	cursor: pointer;
+	padding: 8px;
+}
+
+.button:hover {
+	background-color: #eee;
+}
+
+.button-primary {
+	background-color: #7a62d3;
+	color: white;
+}
+
+.button-primary:hover {
+	background-color: #bfadff;
+}
+
 .channels {
 	width: 80px;
 }
@@ -38,6 +59,21 @@ html, body {
 	margin-top: 16px;
 	height: 48px;
 	width: 48px;
+}
+
+.channels-join {
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 50px;
+	color: white;
+	cursor: pointer;
+	margin-left: 16px;
+	margin-top: 16px;
+	height: 48px;
+	width: 48px;
+}
+
+.channels-join > i {
+	padding: 17px;
 }
 
 .channels-separator {
@@ -185,6 +221,55 @@ html, body {
 	width: 100%;
 }
 
+.modal-buttons {
+	bottom: 23px;
+	position: absolute;
+	right: 16px;
+}
+
+.modal-buttons a {
+	margin-left: 10px;
+}
+
+.modal-content {
+	background: #fff;
+	height: 500px;
+	outline: none;
+	overflow: auto;
+	width: 500px;
+}
+
+.modal-content input {
+	font-size: 24px;
+	width: calc(100% - 16px);
+}
+
+.modal-overlay {
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.8);
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+.modal-padding {
+	padding: 16px;
+}
+
+.modal-title {
+	background-color: #7a62d3;
+	color: white;
+	font-size: 16px;
+	font-weight: 300;
+	padding-bottom: 8px;
+	padding-left: 12px;
+	padding-top: 8px;
+}
+
 .titlebar {
 	height: 25px;
 	margin: 1px;
@@ -249,4 +334,62 @@ html, body {
 .userlist-user-name {
 	font-size: 14px;
 	margin-left: 5px;
+}
+
+.ReactModal__Content--after-open {
+	animation: scaleForward .5s cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
+}
+
+.ReactModal__Content--before-close {
+	animation: scaleBack .5s cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
+}
+
+.ReactModal__Overlay--after-open {
+	animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.ReactModal__Overlay--before-close {
+	animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+
+@keyframes fadeIn {
+	0% {
+		background: rgba(0, 0, 0, 0);
+		opacity: 0;
+	}
+	100% {
+		background: rgba(0, 0, 0, 0.8);
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		background: rgba(0, 0, 0, 0.8);
+		opacity: 1;
+	}
+	100% {
+		background: rgba(0, 0, 0, 0);
+		opacity: 0;
+	}
+}
+
+
+@keyframes scaleBack {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0.85);
+	}
+}
+
+@keyframes scaleForward {
+	0% {
+		transform: scale(0.85);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
