@@ -52,7 +52,7 @@ var MessageView = React.createClass({
 				</div>
 
 				<div className="flex-horizontal">
-					<div className="messages-wrapper">
+					<div className="messages-wrapper flex-vertical">
 
 						<ResizableBox height={400} width="100%" isResizable={{top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false}} customClass="messages-embed" onResizeStart={this.embedResizeStart} onResizeStop={this.embedResizeStop}>
 							<div className="messages-embed-overlay" style={{width: "100%", height: "100%", display: "none", position: "absolute", zIndex: 9999}}></div>
