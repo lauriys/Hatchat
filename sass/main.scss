@@ -1,0 +1,250 @@
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html, body {
+	color: #333;
+	font-family: 'Roboto', sans-serif;
+	height: 100%;
+	margin: 0;
+}
+
+#app {
+	height: 100%;
+	width: 100%;
+}
+
+#content {
+	color: red;
+	padding: 15px;
+}
+
+.app {
+	height: 100%;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	width: 100%;
+}
+
+.channels {
+	width: 80px;
+}
+
+.channels-channel {
+	background-color: black;
+	border-radius: 50px;
+	color: white;
+	margin-left: 16px;
+	margin-top: 16px;
+	height: 48px;
+	width: 48px;
+}
+
+.channels-separator {
+	border-bottom: 2px solid #7a62d3;
+	margin-left: 24px;
+	margin-right: 24px;
+	margin-top: 8px;
+}
+
+.channels-text {
+	font-size: 10px;
+	margin-top: 8px;
+	text-align: center;
+}
+
+.channels-whispers {
+	background-color: #7a62d3;
+	border-radius: 50px;
+	color: white;
+	margin-left: 16px;
+	margin-top: 16px;
+	height: 48px;
+	width: 48px;
+}
+
+.channels-whispers > i {
+	padding: 8px;
+}
+
+.channels-wrapper {
+	background-color: #bfadff;
+	color: #7a62d3;
+	width: 80px;
+}
+
+.flex-horizontal {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}
+
+.flex-vertical {
+	display: flex;
+	flex-direction: column;
+}
+
+.message {
+	display: flex;
+	font-size: 14px;
+	padding-left: 8px;
+	padding-top: 8px;
+}
+
+.message-avatar {
+	background-color: black;
+	border-radius: 50px;
+	min-height: 16px;
+	min-width: 16px;
+}
+
+.message-content {
+	padding-left: 5px;
+}
+
+.messages {
+	width: 100%;
+}
+
+.messages-bar {
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #eee; 
+	border-right: 1px solid #eee;
+	border-top: 1px solid #eee;
+	min-height: 64px;
+	-webkit-app-region: drag;
+}
+
+.messages-bar-buttons {
+	color: #999;
+	float: right;
+	padding: 22px;
+	-webkit-app-region: no-drag;
+}
+
+.messages-bar-buttons i {
+	cursor: pointer;
+	padding-left: 10px;
+}
+
+.messages-bar-name {
+	font-size: 24px;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+.messages-bar-subtitle {
+	color: #999;
+	font-size: 12px;
+	padding-left: 10px;
+	padding-top: 2px;
+}
+
+.messages-content {
+	height: calc(100% - 400px);
+	overflow-y: scroll;
+}
+
+.messages-content::-webkit-scrollbar {
+	width: 10px;
+}
+
+.messages-content::-webkit-scrollbar-thumb {
+	background-color: #ddd;
+	border-radius: 15px;
+}
+
+.messages-content::-webkit-scrollbar-track {
+	background-color: white;
+	margin: 5px;
+}
+
+.messages-content::-webkit-scrollbar-track-piece {
+	background-color: white;
+}
+
+.messages-embed {
+	background-color: black;
+	height: 400px;
+	width: 100%;
+}
+
+.messages-embed iframe {
+	border: none;
+	display: flex;
+	height: 100%;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.messages-wrapper {
+	height: 100%;
+	width: 100%;
+}
+
+.titlebar {
+	height: 25px;
+	margin: 1px;
+	pointer-events: none;
+	position: fixed;
+	width: 100%;
+	z-index: 3000;
+	-webkit-app-region: drag;
+	-webkit-user-select: none;
+}
+
+.userlist {
+	overflow-y: scroll;
+	padding-left: 12px;
+}
+
+.userlist::-webkit-scrollbar {
+	width: 10px;
+}
+
+.userlist::-webkit-scrollbar-thumb {
+	background-color: #ccc;
+	border-radius: 15px;
+}
+
+.userlist::-webkit-scrollbar-track {
+	background-color: #eee;
+	margin: 5px;
+}
+
+.userlist::-webkit-scrollbar-track-piece {
+	background-color: #eee;
+}
+
+.userlist-category {
+	font-size: 12px;
+	font-weight: bold;
+	padding-top: 12px;
+}
+
+.userlist-wrapper {
+	background-color: #eee;
+	max-width: 240px;
+	min-width: 240px;
+	width: 240px;
+}
+
+.userlist-user {
+	display: flex;
+	padding-top: 3px;
+}
+
+.userlist-user-avatar {
+	background-color: black;
+	border-radius: 50px;
+	height: 16px;
+	min-height: 16px;
+	min-width: 16px;
+	width: 16px;
+}
+
+.userlist-user-name {
+	font-size: 14px;
+	margin-left: 5px;
+}
