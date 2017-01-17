@@ -35,7 +35,7 @@ var MessageView = React.createClass({
 						<i onClick={this.windowClose} className="fa fa-times"></i>
 					</div>
 					<div className="messages-bar-name">
-						GoldGlove
+						chaway
 					</div>
 					<div className="messages-bar-subtitle">
 						playing H1Z1: King of the Kill
@@ -45,7 +45,7 @@ var MessageView = React.createClass({
 				<div className="flex-horizontal">
 					<div className="messages-wrapper">
 						<div className="messages-embed">
-							<iframe src="http://player.twitch.tv/?channel=goldglove" frameBorder="0" scrolling="no" allowFullScreen="true"></iframe>
+							<iframe src="http://player.twitch.tv/?channel=chaway" frameBorder="0" scrolling="no" allowFullScreen="true"></iframe>
 						</div>
 						<div className="messages-content">
 							<For each="message" of={this.state.messages}>
@@ -58,7 +58,7 @@ var MessageView = React.createClass({
 							</For> 
 						</div>
 					</div>
-					<UserList username="goldglove" />
+					<UserList username="chaway" />
 				</div>
 			</div>
 		)

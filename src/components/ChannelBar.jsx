@@ -14,7 +14,7 @@ var ChannelBar = React.createClass({
 					
 					<div className="channels-separator"></div>
 
-					<div className="channels-channel" style={{backgroundImage: "url('https://static-cdn.jtvnw.net/jtv_user_pictures/goldglove-profile_image-ebb22ee6cccace23-300x300.png')", backgroundSize: '48px'}}></div>
+					<div className="channels-channel" style={{backgroundImage: "url('https://static-cdn.jtvnw.net/jtv_user_pictures/chaway-profile_image-46d2ea8ecd80ef36-300x300.png')", backgroundSize: '48px'}}></div>
 
 				</div>
 			</div>

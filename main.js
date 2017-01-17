@@ -37,7 +37,7 @@ function createWindow () {
   console.log('meow')
 
   var client = new tmi.client({
-    channels: ['goldglove']
+    channels: ['chaway']
   })
 
   client.connect()
