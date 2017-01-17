@@ -1,6 +1,7 @@
 const electron = require('electron')
 
 import React from 'react'
+import ResizableBox from 'react-resizable-box'
 
 import UserList from '../components/UserList'
 
@@ -17,6 +18,14 @@ var MessageView = React.createClass({
 			content.scrollTop = content.scrollHeight
 		})
 
+	},
+
+	embedResizeStart: function() {
+		document.querySelector('.messages-embed-overlay').style.display = 'block'
+	},
+
+	embedResizeStop: function() {
+		document.querySelector('.messages-embed-overlay').style.display = 'none'
 	},
 
 	getInitialState: function() {
@@ -44,9 +53,12 @@ var MessageView = React.createClass({
 
 				<div className="flex-horizontal">
 					<div className="messages-wrapper">
-						<div className="messages-embed">
+
+						<ResizableBox height={400} width="100%" isResizable={{top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false}} customClass="messages-embed" onResizeStart={this.embedResizeStart} onResizeStop={this.embedResizeStop}>
+							<div className="messages-embed-overlay" style={{width: "100%", height: "100%", display: "none", position: "absolute", zIndex: 9999}}></div>
 							<iframe src="http://player.twitch.tv/?channel=chaway" frameBorder="0" scrolling="no" allowFullScreen="true"></iframe>
-						</div>
+						</ResizableBox>
+						
 						<div className="messages-content">
 							<For each="message" of={this.state.messages}>
 								<div className="message">
