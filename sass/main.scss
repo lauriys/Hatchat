@@ -169,7 +169,7 @@ html, body {
 .messages-embed {
 	background-color: black;
 	height: 400px;
-	width: 100%;
+	width: 100% !important;
 }
 
 .messages-embed iframe {
