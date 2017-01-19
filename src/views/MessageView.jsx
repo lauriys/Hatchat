@@ -3,6 +3,7 @@ const electron = require('electron')
 import React from 'react'
 import ResizableBox from 'react-resizable-box'
 
+import AppBar from '../components/AppBar'
 import UserList from '../components/UserList'
 
 var MessageView = React.createClass({
@@ -36,62 +37,41 @@ var MessageView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="messages flex-vertical">
-				<div className="messages-bar">
-					<div className="messages-bar-buttons">
-						<i onClick={this.windowMinimize} className="fa fa-window-minimize"></i>
-						<i onClick={this.windowMaximize} className="fa fa-window-maximize"></i>
-						<i onClick={this.windowClose} className="fa fa-times"></i>
+			<Choose>
+				<When condition={!this.props.activeChannel}>
+					<div className="messages flex-vertical">
+						<AppBar title="Hatchat" />
 					</div>
-					<div className="messages-bar-name">
-						chaway
-					</div>
-					<div className="messages-bar-subtitle">
-						playing H1Z1: King of the Kill
-					</div>
-				</div>
+				</When>
+				<Otherwise>
+					<div className="messages flex-vertical">
+						<AppBar title={this.props.activeChannel} />
 
-				<div className="flex-horizontal">
-					<div className="messages-wrapper flex-vertical">
+						<div className="flex-horizontal">
+							<div className="messages-wrapper flex-vertical">
 
-						<ResizableBox height={400} width="100%" isResizable={{top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false}} customClass="messages-embed" onResizeStart={this.embedResizeStart} onResizeStop={this.embedResizeStop}>
-							<div className="messages-embed-overlay" style={{width: "100%", height: "100%", display: "none", position: "absolute", zIndex: 9999}}></div>
-							<iframe src="http://player.twitch.tv/?channel=chaway" frameBorder="0" scrolling="no" allowFullScreen="true"></iframe>
-						</ResizableBox>
-						
-						<div className="messages-content">
-							<For each="message" of={this.state.messages}>
-								<div className="message">
-									<div className="message-avatar" style={{backgroundColor: message.userstate.color ? message.userstate.color : 'black'}}></div>
-									<div className="message-content">
-										<b style={{color: message.userstate.color ? message.userstate.color : 'black'}}>{message.userstate['display-name'] ? message.userstate['display-name'] : message.userstate.username}</b>: {message.message}
-									</div>
+								<ResizableBox height={400} width="100%" isResizable={{top: false, right: false, bottom: true, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false}} customClass="messages-embed" onResizeStart={this.embedResizeStart} onResizeStop={this.embedResizeStop}>
+									<div className="messages-embed-overlay" style={{width: "100%", height: "100%", display: "none", position: "absolute", zIndex: 9999}}></div>
+									<iframe src={"http://player.twitch.tv/?channel=" + this.props.activeChannel} frameBorder="0" scrolling="no" allowFullScreen="true"></iframe>
+								</ResizableBox>
+								
+								<div className="messages-content">
+									<For each="message" of={this.state.messages}>
+										<div className="message">
+											<div className="message-avatar" style={{backgroundColor: message.userstate.color ? message.userstate.color : 'black'}}></div>
+											<div className="message-content">
+												<b style={{color: message.userstate.color ? message.userstate.color : 'black'}}>{message.userstate['display-name'] ? message.userstate['display-name'] : message.userstate.username}</b>: {message.message}
+											</div>
+										</div>
+									</For> 
 								</div>
-							</For> 
+							</div>
+							<UserList username={this.props.activeChannel} />
 						</div>
 					</div>
-					<UserList username="chaway" />
-				</div>
-			</div>
+				</Otherwise>
+			</Choose>
 		)
-	},
-
-	windowClose: function() {
-		electron.remote.BrowserWindow.getFocusedWindow().close()
-	}, 
-
-	windowMaximize: function() {
-		var focusedWindow = electron.remote.BrowserWindow.getFocusedWindow()
-		
-		if(focusedWindow.isMaximized()) {
-			focusedWindow.unmaximize()
-		} else {
-			focusedWindow.maximize()
-		}
-	},
-
-	windowMinimize: function() {
-		electron.remote.BrowserWindow.getFocusedWindow().minimize()
 	}
 })
 

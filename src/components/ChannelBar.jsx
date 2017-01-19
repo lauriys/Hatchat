@@ -1,6 +1,10 @@
+const electron = require('electron')
+
 import React from 'react'
 
 import Modal from 'react-modal'
+
+import ChannelIcon from './ChannelIcon'
 
 var ChannelBar = React.createClass({
 
@@ -14,6 +18,20 @@ var ChannelBar = React.createClass({
 		return {
 			isJoinModalOpen: false
 		}		
+	},
+
+	handleJoinModalKeyPress: function(event) {
+		if(event.key == 'Enter') {
+			this.joinChannel()
+		}
+	},
+
+	joinChannel: function() {
+		electron.ipcRenderer.send('channel:join', {
+			channel: document.querySelector('#modal-join-channel').value
+		})
+
+		this.closeJoinModal()
 	},
 
 	openJoinModal: function() {
@@ -35,8 +53,10 @@ var ChannelBar = React.createClass({
 					
 					<div className="channels-separator"></div>
 
+					<For each="channel" of={this.props.channels}>
+						<ChannelIcon key={channel} setActiveChannel={() => {this.props.setActiveChannel(channel)}} channel={channel} />
+					</For>
 
-					<div className="channels-channel" style={{backgroundImage: "url('https://static-cdn.jtvnw.net/jtv_user_pictures/chaway-profile_image-46d2ea8ecd80ef36-300x300.png')", backgroundSize: '48px'}}></div>
 
 					<div onClick={this.openJoinModal} className="channels-join">
 						<i className="fa fa-plus"></i>
@@ -53,11 +73,11 @@ var ChannelBar = React.createClass({
 					<div className="modal-padding">
 
 						<label htmlFor="channel">Channel name:</label>
-						<input name="channel" type="text" autoFocus></input>
+						<input id="modal-join-channel" name="channel" type="text" onKeyPress={this.handleJoinModalKeyPress} autoFocus></input>
 
 						<div className="modal-buttons">
 							<a className="button" onClick={this.closeJoinModal}>Cancel</a>
-							<a className="button button-primary" onClick={this.closeJoinModal}>Join</a>
+							<a className="button button-primary" onClick={this.joinChannel}>Join</a>
 						</div>
 					</div>
 
