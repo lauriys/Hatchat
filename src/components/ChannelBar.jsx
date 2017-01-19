@@ -1,4 +1,5 @@
 const electron = require('electron')
+const pkg = require('../../package.json')
 
 import React from 'react'
 
@@ -36,7 +37,7 @@ var ChannelBar = React.createClass({
 						<i className="fa fa-comments fa-2x"></i>
 					</div>
 					<div className="channels-text">
-						AYY LMAO
+						v{pkg.version}
 					</div>
 					
 					<div className="channels-separator"></div>

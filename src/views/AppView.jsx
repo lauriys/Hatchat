@@ -1,6 +1,7 @@
 const electron = require('electron')
 
 import React from 'react'
+import Tooltip from 'react-tooltip'
 
 import ChannelBar from '../components/ChannelBar'
 import MessageView from '../views/MessageView'
@@ -35,6 +36,7 @@ var AppView = React.createClass({
 				<div className="app flex-horizontal">
 					<ChannelBar channels={this.state.channelsJoined} setActiveChannel={this.setActiveChannel} />
 					<MessageView activeChannel={this.state.activeChannel} />
+					<Tooltip />
 				</div>
 			</div>
 		)

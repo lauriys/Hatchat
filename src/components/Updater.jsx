@@ -30,7 +30,7 @@ var Updater = React.createClass({
 
 			autoUpdater.on('update-not-available', function() {
 				self.setState({
-					status: 'nothing'
+					status: 'idle'
 				})
 				console.log('no update available')
 			})
@@ -54,21 +54,23 @@ var Updater = React.createClass({
 		}
 	},
 
+	quitAndInstall: function() {
+		autoUpdater.quitAndInstall()
+	},
+
 	render: function() {
 		return (
 			<Choose>
 				<When condition={this.state.status == 'checking'}>
-					<FontIcon style={{color: '#999'}} className="material-icons fa-spin">autorenew</FontIcon>
+					<FontIcon data-tip="Checking for updates..." data-effect="solid" data-place="bottom" style={{color: '#999'}} className="material-icons fa-spin">autorenew</FontIcon>
 				</When>
 				<When condition={this.state.status == 'available'}>
-					<FontIcon style={{color: 'orange'}} className="material-icons fa-spin">autorenew</FontIcon>
+					<FontIcon data-tip="Updating..." data-effect="solid" data-place="bottom" data-class="tooltip-orange" style={{color: '#FF9800'}} className="material-icons fa-spin">autorenew</FontIcon>
 				</When>
 				<When condition={this.state.status == 'downloaded'}>
-					<FontIcon style={{color: 'green'}} onClick={autoUpdater.quitAndInstall} className="material-icons">autorenew</FontIcon>
+					<FontIcon data-tip="Update is ready. Click to restart." data-effect="solid" data-place="bottom" data-class="tooltip-green" style={{color: '#64DD17', cursor: 'pointer'}} onClick={this.quitAndInstall} className="material-icons">autorenew</FontIcon>
 				</When>
-				<When condition={this.state.status == 'nothing'}>
-					<FontIcon style={{color: 'red'}} className="material-icons">autorenew</FontIcon>
-				</When>
+				
 			</Choose>
 		)
 	}
