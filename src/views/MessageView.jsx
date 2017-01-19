@@ -10,9 +10,8 @@ var MessageView = React.createClass({
 	componentDidMount: function() {
 		var self = this
 
-		var content = document.querySelector('.messages-content')
-
 		electron.ipcRenderer.on('message', function(event, data) {
+			var content = document.querySelector('.messages-content')
 			self.setState({
 				messages: self.state.messages.concat([data])
 			})
