@@ -5,6 +5,8 @@ import React from 'react'
 import {FontIcon} from 'material-ui'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 
+import Updater from './Updater'
+
 var AppBar = React.createClass({
 	render: function() {
 		return (
@@ -13,6 +15,8 @@ var AppBar = React.createClass({
 					<ToolbarTitle text={this.props.title} style={{paddingLeft: '15px', fontWeight: 400}}/>
 				</ToolbarGroup>
 				<ToolbarGroup>
+					<Updater />
+					<ToolbarSeparator />
 					<FontIcon onClick={this.windowMinimize} className="material-icons" style={{paddingLeft: '12px'}}>remove</FontIcon>
 					<FontIcon onClick={this.windowMaximize} className="material-icons" style={{paddingLeft: '12px'}}>crop_square</FontIcon>
 					<FontIcon onClick={this.windowClose} className="material-icons" style={{paddingLeft: '12px'}}>clear</FontIcon>

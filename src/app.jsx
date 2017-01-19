@@ -21,8 +21,6 @@ const muiTheme = getMuiTheme({
 	}
 })
 
-console.log(cyan500)
-
 
 ReactDOM.render(
 	<MuiThemeProvider muiTheme={muiTheme}>

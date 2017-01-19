@@ -3,8 +3,10 @@ const electron = require('electron')
 import React from 'react'
 
 import Modal from 'react-modal'
+import {RaisedButton, TextField} from 'material-ui'
 
 import ChannelIcon from './ChannelIcon'
+import JoinChannelModal from './JoinChannelModal'
 
 var ChannelBar = React.createClass({
 
@@ -18,20 +20,6 @@ var ChannelBar = React.createClass({
 		return {
 			isJoinModalOpen: false
 		}		
-	},
-
-	handleJoinModalKeyPress: function(event) {
-		if(event.key == 'Enter') {
-			this.joinChannel()
-		}
-	},
-
-	joinChannel: function() {
-		electron.ipcRenderer.send('channel:join', {
-			channel: document.querySelector('#modal-join-channel').value
-		})
-
-		this.closeJoinModal()
 	},
 
 	openJoinModal: function() {
@@ -65,23 +53,8 @@ var ChannelBar = React.createClass({
 
 
 				</div>
-				<Modal isOpen={this.state.isJoinModalOpen} style={{content: { height: '200px', width: '400px'}}} closeTimeoutMS={500} contentLabel="Test Modal" className="modal-content" overlayClassName="modal-overlay">
-					<div className="modal-title">
-						Join Channel
-					</div>
 
-					<div className="modal-padding">
-
-						<label htmlFor="channel">Channel name:</label>
-						<input id="modal-join-channel" name="channel" type="text" onKeyPress={this.handleJoinModalKeyPress} autoFocus></input>
-
-						<div className="modal-buttons">
-							<a className="button" onClick={this.closeJoinModal}>Cancel</a>
-							<a className="button button-primary" onClick={this.joinChannel}>Join</a>
-						</div>
-					</div>
-
-				</Modal>
+				<JoinChannelModal open={this.state.isJoinModalOpen} closeModal={this.closeJoinModal} />
 			</div>
 		)
 	}

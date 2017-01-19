@@ -41,9 +41,11 @@ var AppView = React.createClass({
 	},
 
 	setActiveChannel: function(channel) {
-		this.setState({
-			activeChannel: channel
-		})
+		if(this.state.activeChannel != channel) {
+			this.setState({
+				activeChannel: channel
+			})
+		}
 	}
 })
 

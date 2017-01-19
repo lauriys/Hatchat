@@ -3,8 +3,18 @@
 	<body>
 		<div id="app"></div>
 
-		<script src="http://localhost:8080/webpack-dev-server.js"></script>
-		<script src="http://localhost:8080/build/bundle.js"></script>
+		<script>
+			const isDev = /[\\/]electron[\\/]/.test(process.execPath)
+			const bundleScript = document.createElement('script')
+			bundleScript.src = isDev ? 'http://localhost:8080/build/bundle.js' : './public/build/bundle.js'
+			document.body.appendChild(bundleScript)
+
+			if(isDev) {
+				const devServerScript = document.createElement('script')
+				devServerScript.src = 'http://localhost:8080/webpack-dev-server.js'
+				document.body.appendChild(devServerScript)
+			}
+		</script>
 	</body>
 
 	<script>

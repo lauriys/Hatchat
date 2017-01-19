@@ -1,13 +1,18 @@
 {
-	"name": "hatchat",
+	"name": "Hatchat",
 	"version": "0.0.1",
 	"description": "a thing",
+	"productName": "Hatchat",
+	"author": "Hatsuney",
 	"main": "main.js",
 	"scripts": {
+		"build": "webpack --config webpack.production.config.js & electron-packager . %npm_package_productName% --app-version=%npm_package_version% --version=0.0.1 --out=../builds --platform=win32 --arch=ia32 --version-string.CompanyName=Hatsuney --version-string.LegalCopyright=\"Pasteleft (C) 2017 Hatsuney\" --version-string.FileDescription=%npm_package_productName% --version-string.OriginalFilename=Hatchat.exe --version-string.InternalName=Dicksword --version-string.ProductName=%npm_package_productName% --version-string.ProductVersion=%npm_package_version% --asar=true --overwrite",
 		"start": "electron .",
 		"watch": "webpack-dev-server"
 	},
 	"dependencies": {
+		"electron-squirrel-startup": "^1.0.0",
+		"superagent": "^3.3.2",
 		"tmi.js": "^1.1.2"
 	},
 	"devDependencies": {
@@ -31,13 +36,13 @@
 		"node-libs-browser": "^2.0.0",
 		"node-sass": "^4.3.0",
 		"react": "^15.4.2",
+		"react-addons-css-transition-group": "^15.4.2",
 		"react-dom": "^15.4.2",
 		"react-hot-loader": "^1.3.1",
 		"react-resizable-box": "^1.8.1",
 		"react-tap-event-plugin": "^2.0.1",
 		"sass-loader": "^4.1.1",
 		"style-loader": "^0.13.1",
-		"superagent": "^3.3.2",
 		"url-loader": "^0.5.7",
 		"webpack": "^1.14.0",
 		"webpack-dev-server": "^1.16.2"

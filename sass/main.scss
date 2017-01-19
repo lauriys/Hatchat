@@ -72,12 +72,12 @@ html, body {
 	cursor: pointer;
 	margin-left: 16px;
 	margin-top: 16px;
-	height: 48px;
-	width: 48px;
+	height: 44px;
+	width: 44px;
 }
 
 .channels-join > i {
-	padding: 17px;
+	padding: 15px;
 }
 
 .channels-separator {
@@ -114,6 +114,46 @@ html, body {
 	width: 80px;
 }
 
+.fade-enter {
+	opacity: 0;
+}
+
+.fade-enter.fade-enter-active {
+	opacity: 1;
+	transition: 250ms;
+}
+
+.fade-leave {
+	opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+	opacity: 0;
+	transition: 250ms;
+}
+
+.fade-height-enter {
+	max-height: 0;
+	opacity: 0;
+}
+
+.fade-height-enter.fade-height-enter-active {
+	max-height: 100px;
+	opacity: 1;
+	transition: 500ms ease-in;
+}
+
+.fade-height-leave {
+	max-height: 100px;
+	opacity: 1;
+}
+
+.fade-height-leave.fade-height-leave-active {
+	max-height: 0;
+	opacity: 0;
+	transition: 500ms ease-out;
+}
+
 .flex-horizontal {
 	display: flex;
 	flex-direction: row;
@@ -128,8 +168,8 @@ html, body {
 .message {
 	display: flex;
 	font-size: 14px;
+	padding-bottom: 8px;
 	padding-left: 8px;
-	padding-top: 8px;
 }
 
 .message-avatar {
@@ -143,6 +183,11 @@ html, body {
 
 .message-content {
 	padding-left: 5px;
+}
+
+.message-hatchat {
+	color: #999;
+	padding-top: 8px;
 }
 
 .messages {
@@ -266,7 +311,7 @@ html, body {
 }
 
 .modal-title {
-	background-color: #7a62d3;
+	background-color: darken($primary-color, 20%);
 	color: white;
 	font-size: 16px;
 	font-weight: 300;

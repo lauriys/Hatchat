@@ -1,9 +1,12 @@
 const electron = require('electron')
 
 import React from 'react'
+
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import ResizableBox from 'react-resizable-box'
 
 import AppBar from '../components/AppBar'
+import Message from '../components/Message'
 import UserList from '../components/UserList'
 
 var messageListener
@@ -13,31 +16,28 @@ var MessageView = React.createClass({
 		var self = this
 		console.log('MessageView::componentWillReceiveProps')
 
-		if(this.props.activeChannel != props.activeChannel) {
-			console.log('new channel:' + props.activeChannel)
+		console.log('new channel:' + props.activeChannel)
 
-			if(messageListener) {
-				electron.ipcRenderer.removeListener('data:change:messages:' + this.props.activeChannel, messageListener)
-			}
+		if(messageListener) {
+			electron.ipcRenderer.removeListener('data:change:messages:' + this.props.activeChannel, messageListener)
+		}
 
-			messageListener = function(event, data) {
-				var content = document.querySelector('.messages-content')
-				console.log('updated messages for ' + props.activeChannel)
+		messageListener = function(event, data) {
+			var content = document.querySelector('.messages-content')
 
-				self.setState({
-					messages: data.newValue
-				})
-
-				content.scrollTop = content.scrollHeight
-			}
-
-			electron.ipcRenderer.on('data:change:messages:' + props.activeChannel, messageListener)
-
-			electron.ipcRenderer.send('data:request', {
-				key: 'messages:' + props.activeChannel
+			self.setState({
+				messages: data.newValue
 			})
 
+			content.scrollTop = content.scrollHeight
 		}
+
+		electron.ipcRenderer.on('data:change:messages:' + props.activeChannel, messageListener)
+
+		electron.ipcRenderer.send('data:request', {
+			key: 'messages:' + props.activeChannel
+		})
+
 	},
 
 	embedResizeStart: function() {
@@ -76,14 +76,11 @@ var MessageView = React.createClass({
 								</ResizableBox>
 								
 								<div className="messages-content">
-									<For each="message" of={this.state.messages}>
-										<div className="message">
-											<div className="message-avatar" style={{backgroundColor: message.userstate.color ? message.userstate.color : 'black'}}></div>
-											<div className="message-content">
-												<b style={{color: message.userstate.color ? message.userstate.color : 'black'}}>{message.userstate['display-name'] ? message.userstate['display-name'] : message.userstate.username}</b>: {message.message}
-											</div>
-										</div>
-									</For> 
+									<ReactCSSTransitionGroup transitionName="fade-no" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+										<For each="message" of={this.state.messages.slice(this.state.messages.length - 50, this.state.messages.length)}>
+											<Message type={message.type} userstate={message.userstate} message={message.message} key={message.userstate.id} />
+										</For>
+									</ReactCSSTransitionGroup>
 								</div>
 							</div>
 							<UserList username={this.props.activeChannel} />
