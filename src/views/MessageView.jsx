@@ -6,18 +6,38 @@ import ResizableBox from 'react-resizable-box'
 import AppBar from '../components/AppBar'
 import UserList from '../components/UserList'
 
+var messageListener
+
 var MessageView = React.createClass({
-	componentDidMount: function() {
+	componentWillReceiveProps: function(props) {
 		var self = this
+		console.log('MessageView::componentWillReceiveProps')
 
-		electron.ipcRenderer.on('message', function(event, data) {
-			var content = document.querySelector('.messages-content')
-			self.setState({
-				messages: self.state.messages.concat([data])
+		if(this.props.activeChannel != props.activeChannel) {
+			console.log('new channel:' + props.activeChannel)
+
+			if(messageListener) {
+				electron.ipcRenderer.removeListener('data:change:messages:' + this.props.activeChannel, messageListener)
+			}
+
+			messageListener = function(event, data) {
+				var content = document.querySelector('.messages-content')
+				console.log('updated messages for ' + props.activeChannel)
+
+				self.setState({
+					messages: data.newValue
+				})
+
+				content.scrollTop = content.scrollHeight
+			}
+
+			electron.ipcRenderer.on('data:change:messages:' + props.activeChannel, messageListener)
+
+			electron.ipcRenderer.send('data:request', {
+				key: 'messages:' + props.activeChannel
 			})
-			content.scrollTop = content.scrollHeight
-		})
 
+		}
 	},
 
 	embedResizeStart: function() {
@@ -30,7 +50,8 @@ var MessageView = React.createClass({
 
 	getInitialState: function() {
 		return {
-			messages: []
+			messages: [],
+			messageListener: null
 		}
 	},
 

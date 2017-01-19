@@ -5,11 +5,17 @@ var Data = {
 
 	push: function(key, value) {
 		var self = this
+
+		if(this.store[key] == undefined) {
+			this.store[key] = []
+		}
+
 		this.store[key].push(value)
 
 		Hatchat.mainWindow.webContents.send('data:change:' + key, {
 			newValue: self.store[key]
 		})
+		console.log('send data:change:' + key)
 	},
 
 	send: function(key) {
@@ -17,6 +23,7 @@ var Data = {
 		Hatchat.mainWindow.webContents.send('data:change:' + key, {
 			newValue: self.store[key]
 		})
+		console.log('send data:change:' + key)
 	},
 
 	set: function(key, value) {

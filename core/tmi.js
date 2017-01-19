@@ -15,16 +15,22 @@ var TMI = {
 		client.connect()
 
 		client.on('chat', function(channel, userstate, message, self) {
-			Hatchat.mainWindow.webContents.send('message', {
-				channel: channel,
+			Hatchat.Data.push('messages:' + channel.replace('#', ''), {
 				userstate: userstate,
 				message: message
 			})
+
+			// Hatchat.mainWindow.webContents.send('message', {
+			// 	channel: channel,
+			// 	userstate: userstate,
+			// 	message: message
+			// })
 		})
 
 		client.on('join', function(channel, username, self) {
 			if(self) {
 				Hatchat.Data.push('channels:joined', channel.replace('#', ''))
+				Hatchat.Data.set('messages:' + channel.replace('#', ''), [])
 			}
 			console.log('JOIN ' + channel + ' ' + username)
 			console.log(self)

@@ -7,6 +7,10 @@ var IPC = {
 			Hatchat.TMI.join(data.channel)
 		})
 
+		electron.ipcMain.on('data:request', function(event, data) {
+			Hatchat.Data.send(data.key)
+		})
+
 		electron.ipcMain.on('renderer:load', function(event, data) {
 			Hatchat.Data.send('channels:joined')
 		})
