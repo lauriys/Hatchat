@@ -11,36 +11,41 @@ var Updater = React.createClass({
 	componentDidMount: function() {
 		var self = this
 
-		autoUpdater.on('update-available', function() {
-			self.setState({
-				status: 'available'
-			})
-			console.log('update available')
-		})
+		const isDev = /[\\/]electron[\\/]/.test(process.execPath)
 
-		autoUpdater.on('checking-for-update', function() {
-			self.setState({
-				status: 'checking'
+		if(!isDev) {
+			autoUpdater.on('update-available', function() {
+				self.setState({
+					status: 'available'
+				})
+				console.log('update available')
 			})
-			console.log('checking for update')
-		})
 
-		autoUpdater.on('update-not-available', function() {
-			self.setState({
-				status: 'nothing'
+			autoUpdater.on('checking-for-update', function() {
+				self.setState({
+					status: 'checking'
+				})
+				console.log('checking for update')
 			})
-			console.log('no update available')
-		})
 
-		autoUpdater.on('update-downloaded', function(event) {
-			self.setState({
-				status: 'downloaded'
+			autoUpdater.on('update-not-available', function() {
+				self.setState({
+					status: 'nothing'
+				})
+				console.log('no update available')
 			})
-			console.log(event)
-		})
 
-		autoUpdater.setFeedURL('http://hatchat.hatsu.live/update/win32')
-		setTimeout(autoUpdater.checkForUpdates, 20 * 1000)
+			autoUpdater.on('update-downloaded', function(event) {
+				self.setState({
+					status: 'downloaded'
+				})
+				console.log(event)
+			})
+
+			autoUpdater.setFeedURL('http://hatchat.hatsu.live/update/win32/' + pkg.version)
+			setTimeout(autoUpdater.checkForUpdates, 20 * 1000)
+			setInterval(autoUpdater.checkForUpdates, 60 * 1000)
+		}
 	},
 
 	getInitialState: function() {
