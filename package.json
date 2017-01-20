@@ -1,6 +1,6 @@
 {
 	"name": "Hatchat",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "a thing",
 	"productName": "Hatchat",
 	"author": "Hatsuney",
@@ -11,6 +11,7 @@
 		"watch": "webpack-dev-server"
 	},
 	"dependencies": {
+		"debug": "^2.6.0",
 		"electron-squirrel-startup": "^1.0.0",
 		"superagent": "^3.3.2",
 		"tmi.js": "^1.1.2"
