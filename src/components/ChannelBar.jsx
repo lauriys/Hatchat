@@ -3,7 +3,6 @@ const pkg = require('../../package.json')
 
 import React from 'react'
 
-import Modal from 'react-modal'
 import {RaisedButton, TextField} from 'material-ui'
 
 import ChannelIcon from './ChannelIcon'
