@@ -1,12 +1,12 @@
 {
 	"name": "Hatchat",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "a thing",
 	"productName": "Hatchat",
 	"author": "Hatsuney",
 	"main": "main.js",
 	"scripts": {
-		"build": "webpack --config webpack.production.config.js & electron-packager . %npm_package_productName% --app-version=%npm_package_version% --electronVersion=1.4.14 --out=../builds --platform=win32 --arch=ia32 --version-string.CompanyName=Hatsuney --version-string.LegalCopyright=\"Pasteleft (C) 2017 Hatsuney\" --version-string.FileDescription=%npm_package_productName% --version-string.OriginalFilename=Hatchat.exe --version-string.InternalName=Dicksword --version-string.ProductName=%npm_package_productName% --version-string.ProductVersion=%npm_package_version% --asar=true --overwrite",
+		"build": "webpack --config webpack.production.config.js & electron-packager . %npm_package_productName% --app-version=%npm_package_version% --electronVersion=1.4.15 --ignore=.babelrc --ignore=.gitignore --ignore=sass --ignore=webpack.config.js --ignore=webpack.production.config.js --ignore=ui --out=../builds --platform=win32 --arch=ia32 --version-string.CompanyName=Hatsuney --version-string.LegalCopyright=\"Pasteleft (C) 2017 Hatsuney\" --version-string.FileDescription=%npm_package_productName% --version-string.OriginalFilename=Hatchat.exe --version-string.InternalName=Dicksword --version-string.ProductName=%npm_package_productName% --version-string.ProductVersion=%npm_package_version% --asar=true --overwrite",
 		"start": "electron .",
 		"watch": "webpack-dev-server"
 	},
@@ -23,7 +23,7 @@
 		"babel-preset-react": "^6.16.0",
 		"babel-preset-stage-0": "^6.16.0",
 		"css-loader": "^0.26.1",
-		"electron": "^1.4.14",
+		"electron": "^1.4.15",
 		"electron-packager": "^8.5.0",
 		"electron-react-devtools": "^0.4.0",
 		"electron-rebuild": "^1.5.6",
