@@ -16,15 +16,12 @@ var UserList = React.createClass({
 	},
 
 	componentWillReceiveProps: function(props) {
-		console.log('UserList::componentWillReceiveProps (' + this.props.username + ' -> ' + props.username + ')')
-
 		var self = this
-
+		
 		if(this.props.username != props.username) {
 			if(userlistListener) {
 				electron.ipcRenderer.removeListener('data:change:chatters:' + this.props.username, userlistListener)
 			}
-
 			this.initListener(props.username)
 		}
 	},
@@ -50,15 +47,9 @@ var UserList = React.createClass({
 				chatters: data.newValue,
 				loading: false
 			})
-			console.log('chatters here')
-			console.log(data.newValue)
-			console.log('chaaatters')
 		}
 
 		electron.ipcRenderer.on('data:change:chatters:' + username, userlistListener)
-
-		console.log('data:request chatters:' + username)
-
 		electron.ipcRenderer.send('data:request', {
 			key: 'chatters:' + username
 		})
@@ -72,7 +63,7 @@ var UserList = React.createClass({
 				</If>
 				<If condition={!this.state.loading}>
 					<List className="userlist">
-						
+
 						<UserListGroup title="Staff" users={this.state.chatters.staff} innerDivStyle={{padding: '12px 16px 10px 48px'}} avatarSize={24} />
 						<UserListGroup title="Admins" users={this.state.chatters.admins} innerDivStyle={{padding: '12px 16px 10px 48px'}} avatarSize={24} />
 						<UserListGroup title="Global Moderators" users={this.state.chatters.global_mods} innerDivStyle={{padding: '12px 16px 10px 48px'}} avatarSize={24} />
