@@ -1,4 +1,5 @@
 const electron = require('electron')
+const pkg = require('../../package.json')
 
 import React from 'react'
 import Tooltip from 'react-tooltip'
@@ -14,6 +15,10 @@ var AppView = React.createClass({
 		var self = this
 
 		electron.ipcRenderer.send('renderer:load', {})
+		mixpanel.register({
+			version: pkg.version
+		})
+		mixpanel.track('Launched the app')
 
 		electron.ipcRenderer.on('data:change:channels:joined', function(event, data) {
 			self.setState({
@@ -44,6 +49,9 @@ var AppView = React.createClass({
 
 	setActiveChannel: function(channel) {
 		if(this.state.activeChannel != channel) {
+			mixpanel.track('Switched active channel', {
+				channel: channel
+			})
 			this.setState({
 				activeChannel: channel
 			})

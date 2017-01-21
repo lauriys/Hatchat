@@ -18,6 +18,7 @@ var Updater = React.createClass({
 				self.setState({
 					status: 'available'
 				})
+				mixpanel.track('Found an update')
 				console.log('update available')
 			})
 
@@ -39,6 +40,7 @@ var Updater = React.createClass({
 				self.setState({
 					status: 'downloaded'
 				})
+				mixpanel.track('Downloaded an update')
 				console.log(event)
 			})
 
@@ -55,6 +57,7 @@ var Updater = React.createClass({
 	},
 
 	quitAndInstall: function() {
+		mixpanel.track('Quitting and installing update')
 		autoUpdater.quitAndInstall()
 	},
 
@@ -70,7 +73,7 @@ var Updater = React.createClass({
 				<When condition={this.state.status == 'downloaded'}>
 					<FontIcon data-tip="Update is ready. Click to restart." data-effect="solid" data-place="bottom" data-class="tooltip-green" style={{color: '#64DD17', cursor: 'pointer'}} onClick={this.quitAndInstall} className="material-icons">autorenew</FontIcon>
 				</When>
-				
+
 			</Choose>
 		)
 	}

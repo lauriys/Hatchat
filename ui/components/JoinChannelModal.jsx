@@ -26,6 +26,9 @@ var JoinChannelModal = React.createClass({
 	joinChannel: function() {
 		var self = this
 
+		mixpanel.track('Joined channel', {
+			channel: self.state.joinModalChannelName
+		})
 		electron.ipcRenderer.send('channel:join', {
 			channel: self.state.joinModalChannelName
 		})

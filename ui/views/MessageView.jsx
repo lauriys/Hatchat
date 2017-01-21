@@ -41,6 +41,7 @@ var MessageView = React.createClass({
 	},
 
 	embedResizeStart: function() {
+		mixpanel.track('Tweaked the embed height')
 		document.querySelector('.messages-embed-overlay').style.display = 'block'
 	},
 
@@ -74,7 +75,7 @@ var MessageView = React.createClass({
 									<div className="messages-embed-overlay" style={{width: "100%", height: "100%", display: "none", position: "absolute", zIndex: 9999}}></div>
 									<iframe src={"http://player.twitch.tv/?channel=" + this.props.activeChannel} frameBorder="0" scrolling="no" allowFullScreen="true"></iframe>
 								</ResizableBox>
-								
+
 								<div className="messages-content">
 									<ReactCSSTransitionGroup transitionName="fade-no" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 										<For each="message" of={this.state.messages.slice(this.state.messages.length - 50, this.state.messages.length)}>
