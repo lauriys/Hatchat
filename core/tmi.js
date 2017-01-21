@@ -1,8 +1,42 @@
 const tmi = require('tmi.js')
 
-
 var TMI = {
 	client: null,
+	chattersChanged: {},
+
+	checkChattersChanged: function() {
+		var self = this
+
+		for(var i = 0; i < Object.keys(this.chattersChanged).length; i++) {
+			var channel = Object.keys(this.chattersChanged)[i]
+			var chatters = Hatchat.Data.get('chatters:' + channel)
+			var changed = this.chattersChanged[channel]
+			var sendChatters = false
+
+			if(changed.joined.length > 0) {
+				changed.joined.forEach(function(username) {
+					if(!self.isInChatters(chatters, username)) {
+						chatters.viewers.push(username)
+					}
+				})
+				sendChatters = true
+				changed.joined = []
+			}
+
+			if(changed.left.length > 0) {
+				changed.left.forEach(function(username) {
+					var category = self.getChatterCategory(chatters, username)
+					if(category) {
+						chatters[category].splice(chatters[category].indexOf(username), 1)
+					}
+				})
+				sendChatters = true
+				changed.left = []
+			}
+
+			if(sendChatters) Hatchat.Data.send('chatters:' + channel)
+		}
+	},
 
 	getChatterCategory: function(chatters, username) {
 		for(var i = 0; i < Object.keys(chatters).length; i++) {
@@ -23,13 +57,13 @@ var TMI = {
 
 		Hatchat.Data.set('channels:joined', [])
 
-		client = new tmi.client({
+		this.client = new tmi.client({
 			channels: []
 		})
 
-		client.connect()
+		this.client.connect()
 
-		client.on('chat', function(channel, userstate, message, myself) {
+		this.client.on('chat', function(channel, userstate, message, myself) {
 			Hatchat.Data.push('messages:' + channel.replace('#', ''), {
 				userstate: userstate,
 				message: message,
@@ -37,15 +71,21 @@ var TMI = {
 			})
 		})
 
-		client.on('connected', function(address, port) {
+		this.client.on('connected', function(address, port) {
 			console.log(address + ':' + port)
+			setInterval(self.checkChattersChanged.bind(self), 1000)
 		})
 
-		client.on('join', function(channel, username, myself) {
+		this.client.on('join', function(channel, username, myself) {
 			var channel = channel.replace('#', '')
 
 			if(myself) {
 				Hatchat.Data.push('channels:joined', channel)
+
+				self.chattersChanged[channel] = {
+					joined: [],
+					left: []
+				}
 
 				Hatchat.Data.set('chatters:' + channel, {
 					admins: [],
@@ -63,26 +103,20 @@ var TMI = {
 				})
 
 				Hatchat.Twitch.updateChatters(channel)
-
 			} else {
-				if(!self.isInChatters(Hatchat.Data.get('chatters:' + channel), username)) {
-					Hatchat.Data.push('chatters:' + channel, 'viewers', username)
-				}
+				self.chattersChanged[channel].joined.push(username)
 			}
 		})
 
-		client.on('part', function(channel, username, myself) {
+		this.client.on('part', function(channel, username, myself) {
 			var channel = channel.replace('#', '')
-
-			if(self.isInChatters(Hatchat.Data.get('chatters:' + channel), username)) {
-				Hatchat.Data.remove('chatters:' + channel, self.getChatterCategory(Hatchat.Data.get('chatters:' + channel), username), username)
-			}
-		})		
+			self.chattersChanged[channel].left.push(username)
+		})
 
 	},
 
 	join: function(channel) {
-		client.join(channel)
+		this.client.join(channel)
 	}
 }
 
